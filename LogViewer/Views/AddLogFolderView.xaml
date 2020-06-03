@@ -1,0 +1,28 @@
+﻿<Window x:Class="LogViewer.Views.AddLogFolderView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LogViewer.Views"
+        xmlns:validationRules="clr-namespace:LogViewer.ValidationRules"
+        mc:Ignorable="d"
+        x:Name="AddLogFolderWindow"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterScreen"
+        Title="Add Log Folder" Icon="/LogViewer;component/Icons/Network_Folder.ico">
+    <StackPanel Orientation="Vertical" Margin="15">
+        <TextBlock Text="Log folder path:" Style="{StaticResource HeaderStyle}" Margin="0,0,0,5"/>
+        <TextBox FontSize="14" Name="AddLogFolderTextbox" PreviewKeyDown="AddLogFolderTextbox_PreviewKeyDown">
+            <TextBox.Text>
+                <Binding Path="LogFolderPath">
+                    <Binding.ValidationRules>
+                        <validationRules:LogFolderPathValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <Button Name="AddLogFolderButton" Content="Add Log Folder" Command="{Binding AddLogFolderCommand}" CommandParameter="{Binding ElementName=AddLogFolderWindow}" IsDefault="True"/>
+        <Button Content="Cancel" Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=AddLogFolderWindow}" IsCancel="True"/>
+    </StackPanel>
+</Window>

@@ -1,0 +1,57 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="LogViewer.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="OnlineLogFolderPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">\\wpdevapppfc2016\WY\Logs</Value>
+    </Setting>
+    <Setting Name="OfflineLogFolderPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\WY\Logs</Value>
+    </Setting>
+    <Setting Name="MainWindowPlacement" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ShowWelcomeNotification" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="LogFolderPaths" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;\\WPDEVAPPPFC2016\WY\Logs&lt;/string&gt;
+  &lt;string&gt;\\mtkalapfc10\c$\ProgramData\Proficy\Logs&lt;/string&gt;
+  &lt;string&gt;\\mtkalasql10\c$\ProgramData\Proficy\Logs&lt;/string&gt;
+  &lt;string&gt;\\MTKALAPFC10\PROFICYLOGS&lt;/string&gt;
+  &lt;string&gt;\\MTKALASQL10\PROFICYLOGS&lt;/string&gt;
+  &lt;string&gt;\\wpdevapppfc2016\c$\programdata\proficy\logs&lt;/string&gt;
+  &lt;string&gt;\\wpdevsqlpfc2016\c$\programdata\proficy\logs&lt;/string&gt;
+  &lt;string&gt;\\wpdevapppfc02\c$\programdata\proficy\logs&lt;/string&gt;
+  &lt;string&gt;\\wpdevdbspfc02\c$\programdata\proficy\logs&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="AddOfflineLogFolder" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="LogFolderIsActiveBools" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="UpgradeLogFolderSettings" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="SettingsWindowPlacement" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="UpgradeSettings" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="DatabaseNames" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;WPDEVSQLPFC2016&lt;/string&gt;
+  &lt;string&gt;WPDEVDBSPFC02&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="LastVersionNumber" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>

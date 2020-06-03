@@ -1,0 +1,20 @@
+﻿LogViewer
+
+
+winexe
+C#
+.cs
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\
+LogViewer
+none
+false
+DEBUG;TRACE
+
+7-2002460116
+
+37-368471627
+21537968395
+App.xaml;Views\AddDatabaseView.xaml;Views\AddLogFolderView.xaml;Views\FilterView.xaml;Views\LogViewView.xaml;Views\MainWindow.xaml;Views\SettingsView.xaml;
+splashscreen1.png
+False
+

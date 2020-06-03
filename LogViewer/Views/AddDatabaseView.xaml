@@ -1,0 +1,28 @@
+﻿<Window x:Class="LogViewer.Views.AddDatabaseView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LogViewer.Views"
+        xmlns:validationRules="clr-namespace:LogViewer.ValidationRules"
+        mc:Ignorable="d"
+        x:Name="AddDatabaseWindow"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterScreen"
+        Title="Add Database" Icon="/LogViewer;component/Icons/Database.ico">
+    <StackPanel Orientation="Vertical" Margin="15">
+        <TextBlock Text="Database name:" Style="{StaticResource HeaderStyle}" Margin="0,0,0,5"/>
+        <TextBox FontSize="14" Name="AddDatabaseTextbox" PreviewKeyDown="AddDatabaseTextbox_PreviewKeyDown" CharacterCasing="Upper">
+            <TextBox.Text>
+                <Binding Path="DatabaseName">
+                    <Binding.ValidationRules>
+                        <validationRules:DatabaseNameValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <Button Name="AddDatabaseButton" Content="Add Database" Command="{Binding AddDatabaseCommand}" CommandParameter="{Binding ElementName=AddDatabaseWindow}" IsDefault="True"/>
+        <Button Content="Cancel" Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=AddDatabaseWindow}" IsCancel="True"/>
+    </StackPanel>
+</Window>

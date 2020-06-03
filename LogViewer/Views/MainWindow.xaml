@@ -1,0 +1,484 @@
+﻿<Window x:Class="LogViewer.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LogViewer"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        xmlns:helpers="clr-namespace:LogViewer.Helpers"
+        xmlns:converters="clr-namespace:AppStandards.Converters;assembly=AppStandards"
+        xmlns:designViewModels="clr-namespace:LogViewer.ViewModels.DesignViewModels"
+        mc:Ignorable="d"
+        MinWidth="500"
+        MinHeight="500"
+        Effect="{Binding WindowEffect}"
+        WindowStartupLocation="CenterScreen"
+        SourceInitialized="Window_SourceInitialized"
+        Loaded="Window_Loaded"
+        Closing="Window_Closing"
+        Title="Log Viewer" Height="700" Width="800" Icon="/LogViewer;component/Icons/EventLog.ico" Background="#FFF6F6F6">
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="CheckBoxWithError" TargetType="CheckBox">
+                <Style.Triggers>
+                    <Trigger Property="Tag">
+                        <Trigger.Value>
+                            <sys:Boolean>True</sys:Boolean>
+                        </Trigger.Value>
+                        <Setter Property="Foreground" Value="Red"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="ComboboxStyle" TargetType="ComboBox">
+                <Setter Property="Margin" Value="0,0,5,5"/>
+                <Setter Property="MaxHeight" Value="35"/>
+                <Setter Property="IsReadOnly" Value="True"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+            <CollectionViewSource x:Key='LogFilesSource' 
+                      Source="{Binding LogFiles}">
+                <CollectionViewSource.GroupDescriptions>
+                    <PropertyGroupDescription PropertyName="ParentLogFolder" />
+                </CollectionViewSource.GroupDescriptions>
+                <CollectionViewSource.SortDescriptions>
+                    <scm:SortDescription PropertyName="ParentLogFolderFullName" Direction="Ascending"/>
+                    <scm:SortDescription PropertyName="CreationDate" Direction="Descending"/>
+                </CollectionViewSource.SortDescriptions>
+            </CollectionViewSource>
+            <CollectionViewSource x:Key="LogEntriesSource" Source="{Binding LogEntries}"/>
+            <CollectionViewSource x:Key="DatabasesSource" Source="{Binding Databases}"/>
+            <Style TargetType="GroupBox">
+                <Setter Property="BorderBrush" Value="Black"/>
+            </Style>
+            <helpers:LogMessageTypeToIndicator x:Key="LogMessageTypeToIndicator"/>
+            <converters:BooleanToVisibility x:Key="BooleanToVisibilityConverter"/>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <DockPanel>
+        <!--Menu-->
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Settings" Command="{Binding SettingsCommand}" FontSize="15"/>
+            <MenuItem Header="About" Command="{Binding AboutCommand}" FontSize="15"/>
+        </Menu>
+
+        <!--Status bar-->
+        <StatusBar DockPanel.Dock="Bottom" Height="30" Background="#FFF6F6F6">
+            <StatusBarItem DockPanel.Dock="Right" Margin="0,0,5,0">
+                <TextBlock>
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="Showing {0} of {1} log entries">
+                            <Binding Path="Count" Source="{StaticResource LogEntriesSource}"/>
+                            <Binding Path="LogEntries.Count"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Visibility="{Binding UpdatingUILogEntries, Converter={StaticResource BooleanToVisibilityConverter}}"  Text="Refreshing"/>
+            </StatusBarItem>
+            <StatusBarItem>
+                <ProgressBar Visibility="{Binding UpdatingUILogEntries, Converter={StaticResource BooleanToVisibilityConverter}}" Value="{Binding ProgressValue}" Minimum="{Binding MinProgress}" Maximum="{Binding MaxProgress}" Width="150" Height="15"/>
+            </StatusBarItem>
+        </StatusBar>
+
+        <!--Filters panel-->
+        <Expander DockPanel.Dock="Top" Header="Filters" Padding="5" Background="#FFC2C2C2" FontSize="16" MaxHeight="225" IsExpanded="True">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                <StackPanel Orientation="Horizontal">
+                    <GroupBox Header="Date Range" Margin="5,0,5,5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="54"/>
+                                <ColumnDefinition Width="54"/>
+                                <ColumnDefinition Width="75"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+
+                            <!--First row-->
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="Day" VerticalAlignment="Center" Margin="0,0,5,5"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="Hour" VerticalAlignment="Center" Margin="0,0,5,5"/>
+                            <TextBlock Grid.Row="0" Grid.Column="3" Text="Minute" VerticalAlignment="Center" Margin="0,0,5,5"/>
+                            <TextBlock Grid.Row="0" Grid.Column="4" Text="Second" VerticalAlignment="Center" Margin="0,0,5,5"/>
+                            <TextBlock Grid.Row="0" Grid.Column="5" Text="Millisecond" VerticalAlignment="Center" Margin="0,0,5,5"/>
+
+                            <!--Second row-->
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="From:" Margin="0,0,5,5"/>
+                            <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding MinDay}" Margin="0,0,5,5" SelectedDateChanged="DateOrUserInfoFilter_Changed"/>
+                            <ComboBox Grid.Row="1" Grid.Column="2" ItemsSource="{Binding AvailableHours}" SelectedValue="{Binding MinHour}" Style="{StaticResource ComboboxStyle}" SelectionChanged="DateOrUserInfoFilter_Changed"/>
+                            <ComboBox Grid.Row="1" Grid.Column="3" ItemsSource="{Binding AvailableMinutesAndSeconds}" SelectedValue="{Binding MinMinute}" Style="{StaticResource ComboboxStyle}" SelectionChanged="DateOrUserInfoFilter_Changed"/>
+                            <ComboBox Grid.Row="1" Grid.Column="4" ItemsSource="{Binding AvailableMinutesAndSeconds}" SelectedValue="{Binding MinSecond}" Style="{StaticResource ComboboxStyle}" SelectionChanged="DateOrUserInfoFilter_Changed"/>
+                            <ComboBox Grid.Row="1" Grid.Column="5" ItemsSource="{Binding AvailableMilliseconds}" SelectedValue="{Binding MinMillisecond}" Style="{StaticResource ComboboxStyle}" SelectionChanged="DateOrUserInfoFilter_Changed"/>
+
+                            <!--Third row-->
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="To:" Margin="0,0,5,0"/>
+                            <DatePicker Grid.Row="2" Grid.Column="1" SelectedDate="{Binding MaxDay}" Margin="0,0,5,5" SelectedDateChanged="DateOrUserInfoFilter_Changed"/>
+                            <ComboBox Grid.Row="2" Grid.Column="2" ItemsSource="{Binding AvailableHours}" SelectedValue="{Binding MaxHour}" Style="{StaticResource ComboboxStyle}" SelectionChanged="DateOrUserInfoFilter_Changed"/>
+                            <ComboBox Grid.Row="2" Grid.Column="3" ItemsSource="{Binding AvailableMinutesAndSeconds}" SelectedValue="{Binding MaxMinute}" Style="{StaticResource ComboboxStyle}" SelectionChanged="DateOrUserInfoFilter_Changed"/>
+                            <ComboBox Grid.Row="2" Grid.Column="4" ItemsSource="{Binding AvailableMinutesAndSeconds}" SelectedValue="{Binding MaxSecond}" Style="{StaticResource ComboboxStyle}" SelectionChanged="DateOrUserInfoFilter_Changed"/>
+                            <ComboBox Grid.Row="2" Grid.Column="5" ItemsSource="{Binding AvailableMilliseconds}" SelectedValue="{Binding MaxMillisecond}" Style="{StaticResource ComboboxStyle}" SelectionChanged="DateOrUserInfoFilter_Changed"/>
+
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Header="Log Message Type" Margin="5,0,5,5">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                            <DockPanel LastChildFill="False">
+                                <CheckBox DockPanel.Dock="Top" Margin="5" IsChecked="{Binding IncludeErrors}" Content="Errors" Checked="LogTypeFilter_Changed" Unchecked="LogTypeFilter_Changed"/>
+                                <CheckBox DockPanel.Dock="Top" Margin="5" IsChecked="{Binding IncludeWarnings}" Content="Warnings" Checked="LogTypeFilter_Changed" Unchecked="LogTypeFilter_Changed"/>
+                                <CheckBox DockPanel.Dock="Top" Margin="5" IsChecked="{Binding IncludeInformation}" Content="Information" Checked="LogTypeFilter_Changed" Unchecked="LogTypeFilter_Changed"/>
+                                <CheckBox DockPanel.Dock="Top" Margin="5" IsChecked="{Binding IncludeVerbose}" Content="Verbose" Checked="LogTypeFilter_Changed" Unchecked="LogTypeFilter_Changed"/>
+                                <CheckBox DockPanel.Dock="Top" Margin="5" IsChecked="{Binding IncludeDebug}" Content="Debug" Checked="LogTypeFilter_Changed" Unchecked="LogTypeFilter_Changed"/>
+                                <CheckBox DockPanel.Dock="Top" Margin="5" IsChecked="{Binding IncludeDebugErrors}" Content="Debug Errors" Checked="LogTypeFilter_Changed" Unchecked="LogTypeFilter_Changed"/>
+                                <CheckBox DockPanel.Dock="Top" Margin="5" IsChecked="{Binding IncludeDebugWarnings}" Content="Debug Warnings" Checked="LogTypeFilter_Changed" Unchecked="LogTypeFilter_Changed"/>
+                                <CheckBox DockPanel.Dock="Top" Margin="5" IsChecked="{Binding IncludeDebugInformation}" Content="Debug Information" Checked="LogTypeFilter_Changed" Unchecked="LogTypeFilter_Changed"/>
+                                <CheckBox DockPanel.Dock="Top" Margin="5" IsChecked="{Binding IncludeDebugVerbose}" Content="Debug Verbose" Checked="LogTypeFilter_Changed" Unchecked="LogTypeFilter_Changed"/>
+                                <CheckBox DockPanel.Dock="Top" Margin="5" IsChecked="{Binding IncludeUnknown}" Content="Unknown" Checked="LogTypeFilter_Changed" Unchecked="LogTypeFilter_Changed"/>
+                            </DockPanel>
+                        </ScrollViewer>
+                    </GroupBox>
+
+                    <GroupBox Header="User Information" Margin="5,0,5,5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="75"/>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                            </Grid.RowDefinitions>
+
+                            <!--First row-->
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Username" Margin="5,0,5,5"/>
+                            <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding AvailableUsernames}" SelectedValue="{Binding FilterUsername}" Style="{StaticResource ComboboxStyle}" SelectionChanged="DateOrUserInfoFilter_Changed"/>
+
+                            <!--Second row-->
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Computer Name" Margin="5,0,5,5"/>
+                            <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding AvailableComputernames}" SelectedValue="{Binding FilterComputername}" Style="{StaticResource ComboboxStyle}" SelectionChanged="DateOrUserInfoFilter_Changed"/>
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Header="Search/Exclude" Margin="5,0,5,5" Width="445">
+                        <DockPanel>
+                            <TextBlock DockPanel.Dock="Top" Text="Search for log messages that contain:" Margin="5,0,5,0"/>
+                            <DockPanel DockPanel.Dock="Top">
+                                <Button DockPanel.Dock="Right" Content="Clear" Width="45" Height="28" FontSize="4" VerticalAlignment="Top" Margin="5,5,5,0" Command="{Binding ClearSearchboxCommand}"/>
+                                <TextBox DockPanel.Dock="Left" Margin="5,5,0,0" Height="28" VerticalAlignment="Top" Text="{Binding SearchTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="{Binding SearchboxForeground}" Name="SearchTextbox" GotFocus="SearchTextbox_GotFocus" LostFocus="SearchTextbox_LostFocus" TextChanged="SearchOrExcludeFilter_Changed"/>
+                            </DockPanel>
+
+                            <TextBlock DockPanel.Dock="Top" Text="Exclude log messages that contain:" Margin="5,10,5,0"/>
+                            <DockPanel DockPanel.Dock="Top">
+                                <Button DockPanel.Dock="Right" Content="Clear" Width="45" Height="28" FontSize="4" VerticalAlignment="Top" Margin="5,5,5,0" Command="{Binding ClearExcludeboxCommand}"/>
+                                <TextBox DockPanel.Dock="Left" Margin="5,5,0,0" Height="28" VerticalAlignment="Top" Text="{Binding ExclusionTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="{Binding ExcludeboxForeground}" Name="ExcludeTextbox" GotFocus="ExcludeTextbox_GotFocus"  LostFocus="ExcludeTextbox_LostFocus" TextChanged="SearchOrExcludeFilter_Changed"/>
+                            </DockPanel>
+                        </DockPanel>
+                    </GroupBox>
+
+                    <GroupBox Header="Reset" Margin="5,0,5,5">
+                        <Button Content="Reset Filters" Height="Auto" Width="Auto" Padding="5" VerticalAlignment="Top" Command="{Binding ResetFiltersCommand}"/>
+                    </GroupBox>
+                </StackPanel>
+            </ScrollViewer>
+        </Expander>
+
+        <!--Log entry details panel-->
+        <Border BorderThickness="0,1,0,1"  BorderBrush="DarkGray" DockPanel.Dock="Bottom">
+            <Expander ExpandDirection="Up" FontSize="16" MaxHeight="400" Header="Log Entry Details" Padding="5" Background="#FFF6F6F6">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top" Text="Log Message:" Style="{StaticResource HeaderStyle}" Margin="5,5,5,0"/>
+                    <TextBox DockPanel.Dock="Bottom" Margin="5" Text="{Binding SelectedLogEntry.Message}" IsReadOnly="True" FontSize="22" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" Background="#FFF6F6F6"/>
+                </DockPanel>
+            </Expander>
+        </Border>
+
+        <!--Notification panel-->
+        <Border BorderThickness="1 0 0 0" BorderBrush="DarkGray" DockPanel.Dock="Right">
+            <Expander ExpandDirection="Left" MaxWidth="300" Tag="{Binding AnimateNotificationPanel, Mode=TwoWay}" IsExpanded="{Binding NotificationPanelIsExpanded}" Padding="5" Background="#FFF6F6F6">
+                <Expander.Header>
+                    <TextBlock Margin="0, 5, 0, 0">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="Notifications ({0})">
+                                <Binding Path="Notifications.Count"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                        <TextBlock.LayoutTransform>
+                            <RotateTransform Angle="90"/>
+                        </TextBlock.LayoutTransform>
+                    </TextBlock>
+                </Expander.Header>
+                <Expander.Style>
+                    <Style TargetType="Expander">
+                        <Style.Triggers>
+                            <Trigger Property="Tag">
+                                <Trigger.Value>
+                                    <sys:Boolean>True</sys:Boolean>
+                                </Trigger.Value>
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard x:Name="AnimateNotificationPanelBeginStoryBoard">
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetProperty="(Expander.Background).(SolidColorBrush.Color)" RepeatBehavior="0:5" Duration="0:0:1.5" To="LightBlue" AutoReverse="True">
+                                                <ColorAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseInOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <StopStoryboard BeginStoryboardName="AnimateNotificationPanelBeginStoryBoard"/>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Expander.Style>
+
+                <DockPanel Margin="15,5,15,5">
+                    <Button DockPanel.Dock="Bottom" FontSize="8" Width="60" Height="25" Content="Clear All" Command="{Binding ClearAllNotificationsCommand}"/>
+                    <TextBlock DockPanel.Dock="Top" Style="{StaticResource HeaderStyle}">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="Notifications ({0})">
+                                <Binding Path="Notifications.Count"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <Border BorderThickness="1" BorderBrush="DarkGray" Margin="0,5,0,5">
+                        <ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto" Padding="5,0,5,0">
+                            <Grid>
+                                <TextBlock Text="You're all caught up!" FontSize="12" Padding="5" Panel.ZIndex="1" Margin="5,0,5,5" TextAlignment="Center" TextWrapping="Wrap">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Notifications.Count}" Value="0">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <ItemsControl ItemsSource="{Binding Notifications}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="{Binding Message}" TextWrapping="Wrap" Margin="5"/>
+                                                <Separator/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Grid>                            
+                        </ScrollViewer>
+                    </Border>
+                </DockPanel>
+            </Expander>
+        </Border>
+
+        <!--Log files and databases panel-->
+        <Border BorderThickness="0 0 1 0" BorderBrush="DarkGray" DockPanel.Dock="Left">
+            <Expander ExpandDirection="Right" FontSize="16" Padding="5,5,5,0" MaxWidth="800" IsExpanded="True" Background="#FFF6F6F6">
+                <Expander.Header>
+                    <TextBlock Margin="0, 5, 0, 0" Text="Log Files/Databases">
+                        <TextBlock.LayoutTransform>
+                            <RotateTransform Angle="90"/>
+                        </TextBlock.LayoutTransform>
+                    </TextBlock>
+                </Expander.Header>
+                <DockPanel>
+                    <TabControl Background="#FFF6F6F6">
+                        <TabItem >
+                            <TabItem.Header>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="Log Files ({0} of {1} selected)">
+                                            <Binding Path="NumberOfLogFilesSelected"/>
+                                            <Binding Path="LogFiles.Count"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </TabItem.Header>
+                            <DockPanel Margin="0,5,0,0">
+                                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,5">
+                                    <Button Width="70" Height="25" Margin="0,0,10,0" Content="Select All" Command="{Binding SelectAllLogFilesCommand}"/>
+                                    <Button Width="85" Height="25" Margin="0" Content="Deselect All" Command="{Binding DeselectAllLogFilesCommand}"/>
+                                </StackPanel>
+                                <Grid DockPanel.Dock="Top">
+                                    <TextBlock Text="Add or activate log folders from the Settings menu!" FontSize="12" Padding="5" Panel.ZIndex="1" Margin="5,30,5,5" TextAlignment="Center">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Count, Source={StaticResource LogFilesSource}}" Value="0">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <ListView Name="LogFilesListView" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ItemsSource="{Binding Source={StaticResource LogFilesSource}}" Background="#FFF6F6F6">
+                                        <ListView.GroupStyle>
+                                            <GroupStyle>
+                                                <GroupStyle.ContainerStyle>
+                                                    <Style TargetType="{x:Type GroupItem}">
+                                                        <Setter Property="Margin" Value="0,0,0,5"/>
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                                    <Expander IsExpanded="False" BorderBrush="Black" BorderThickness="0,0,0,1" Padding="5">
+                                                                        <Expander.Header>
+                                                                            <StackPanel Orientation="Horizontal">
+                                                                                <TextBlock Text="{Binding Name.Folder.FullName}"/>
+                                                                                <TextBlock Text="{Binding Name.NumberOfLogFilesSelected}" Margin="15,0,0,0"/>
+                                                                                <TextBlock Text=" of "/>
+                                                                                <TextBlock Text="{Binding ItemCount}"/>
+                                                                                <TextBlock Text=" log files selected"/>
+                                                                                <TextBlock Text=" updating..." Margin="15,0,0,0" Visibility="{Binding Name.ShowReloadButton, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Invert}"/>
+                                                                                <Button Content="Reload" Margin="15,0,0,0" Width="60" Height="25" Visibility="{Binding Name.ShowReloadButton, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding Name.ReloadLogFilesCommand}"/>
+                                                                            </StackPanel>
+                                                                        </Expander.Header>
+                                                                        <Expander.Content>
+                                                                            <ItemsPresenter/>
+                                                                        </Expander.Content>
+                                                                    </Expander>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Style.Triggers>
+                                                            <Trigger Property="Tag">
+                                                                <Trigger.Value>
+                                                                    <sys:Boolean>True</sys:Boolean>
+                                                                </Trigger.Value>
+                                                                <Setter Property="Foreground" Value="Red"/>
+                                                                <Setter Property="IsEnabled" Value="False"/>
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </GroupStyle.ContainerStyle>
+                                            </GroupStyle>
+                                        </ListView.GroupStyle>
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Width="Auto">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <CheckBox Margin="5" IsChecked="{Binding KeepCurrent}" Style="{StaticResource CheckBoxWithError}" Tag="{Binding HasError, Mode=OneWay}" Checked="LogFileOrDatabase_KeepCurrentChanged" Unchecked="LogFileOrDatabase_KeepCurrentChanged" IsEnabled="{Binding CanBeSelected}"/>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn Header="Log Name" Width="Auto" DisplayMemberBinding="{Binding Source2}"/>
+                                                <GridViewColumn Header="Creation Date" Width="Auto" DisplayMemberBinding="{Binding CreationDate}"/>
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </Grid>
+                            </DockPanel>
+                        </TabItem>
+                        <TabItem>
+                            <TabItem.Header>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="Databases ({0} of {1} selected)">
+                                            <Binding Path="NumberOfDatabasesSelected"/>
+                                            <Binding Path="Databases.Count"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </TabItem.Header>
+                            <DockPanel Margin="0,5,0,0">
+                                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,5">
+                                    <Button Width="70" Height="25" Margin="0,0,10,0" Content="Select All" Command="{Binding SelectAllDatabasesCommand}"/>
+                                    <Button Width="85" Height="25" Margin="0" Content="Deselect All" Command="{Binding DeselectAllDatabasesCommand}"/>
+                                </StackPanel>
+                                <Grid DockPanel.Dock="Top">
+                                    <TextBlock Text="Add databases from the Settings menu!" FontSize="12" Padding="5" Panel.ZIndex="1" Margin="5,30,5,5" TextAlignment="Center">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Count, Source={StaticResource DatabasesSource}}" Value="0">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <ListView ItemsSource="{Binding Source={StaticResource DatabasesSource}}" Background="#FFF6F6F6">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="Database Name" Width="Auto">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <CheckBox Margin="5" IsChecked="{Binding KeepCurrent}" Style="{StaticResource CheckBoxWithError}" Tag="{Binding HasError, Mode=OneWay}" Checked="LogFileOrDatabase_KeepCurrentChanged" Unchecked="LogFileOrDatabase_KeepCurrentChanged" IsEnabled="{Binding CanBeSelected}" Content="{Binding Name}"/>
+                                                                <TextBlock Text=" updating..." Margin="15,0,0,0" Visibility="{Binding Reloading, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                                                <Button Content="Reload" Margin="15,0,0,0" Width="60" Height="25" Visibility="{Binding Reloading, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Invert}" Command="{Binding ReloadDatabaseCommand}"/>
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </Grid>
+                            </DockPanel>
+                        </TabItem>
+                    </TabControl>
+                </DockPanel>
+            </Expander>
+        </Border>
+
+        <!--Log entries list view-->
+        <Grid DockPanel.Dock="Bottom">
+            <TextBlock Text="No log entries to show." Padding="5" FontSize="12" Panel.ZIndex="1" Margin="5,30,5,5" TextAlignment="Center">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Count, Source={StaticResource LogEntriesSource}}" Value="0">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+            <ListView DockPanel.Dock="Bottom" Name="LogEntriesListView" Margin="0" ItemsSource="{Binding Source={StaticResource LogEntriesSource}}" FontSize="14"  SelectedItem="{Binding SelectedLogEntry}" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" BorderThickness="0">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="MaxHeight" Value="150"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Log Folder/Database" Width="300" DisplayMemberBinding="{Binding ParentLog.Source1}"/>
+
+                        <GridViewColumn Header="Log Name/Table Name" Width="170" DisplayMemberBinding="{Binding ParentLog.Source2}"/>
+
+                        <GridViewColumn Header="Type" Width="85">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ContentPresenter Content="{Binding Type, Converter={StaticResource LogMessageTypeToIndicator}}" HorizontalAlignment="Center" Width="85"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="Time Stamp" Width="175" DisplayMemberBinding="{Binding TimeStamp}"/>
+
+                        <GridViewColumn Header="Username" Width="90" DisplayMemberBinding="{Binding Username}"/>
+
+                        <GridViewColumn Header="Computer Name" Width="140" DisplayMemberBinding="{Binding Computername}"/>
+
+                        <GridViewColumn Header="Message" Width="460" DisplayMemberBinding="{Binding Message}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </DockPanel>
+</Window>

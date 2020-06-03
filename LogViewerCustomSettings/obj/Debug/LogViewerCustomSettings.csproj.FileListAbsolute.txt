@@ -1,0 +1,5 @@
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewerCustomSettings\bin\Debug\LogViewerCustomSettings.dll
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewerCustomSettings\bin\Debug\LogViewerCustomSettings.pdb
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewerCustomSettings\obj\Debug\LogViewerCustomSettings.csproj.CoreCompileInputs.cache
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewerCustomSettings\obj\Debug\LogViewerCustomSettings.dll
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewerCustomSettings\obj\Debug\LogViewerCustomSettings.pdb

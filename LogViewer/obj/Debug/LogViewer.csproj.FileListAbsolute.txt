@@ -1,0 +1,118 @@
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\bin\Debug\LogViewer.exe.config
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\bin\Debug\LogViewer.exe.manifest
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\bin\Debug\LogViewer.application
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\bin\Debug\LogViewer.exe
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\bin\Debug\LogViewer.pdb
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\bin\Debug\AppStandards.dll
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\bin\Debug\Microsoft.Xaml.Behaviors.dll
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\bin\Debug\AppStandards.pdb
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\bin\Debug\AppStandards.xml
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\bin\Debug\Microsoft.Xaml.Behaviors.xml
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\obj\Debug\Views\AddLogFolderView.g.cs
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\obj\Debug\Views\MainWindow.g.cs
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\obj\Debug\Views\SettingsView.g.cs
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\obj\Debug\App.g.cs
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\obj\Debug\LogViewer_MarkupCompile.cache
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\obj\Debug\LogViewer_MarkupCompile.lref
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\obj\Debug\App.baml
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\obj\Debug\Views\AddLogFolderView.baml
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\obj\Debug\Views\MainWindow.baml
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\obj\Debug\Views\SettingsView.baml
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\obj\Debug\LogViewer.g.resources
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\obj\Debug\LogViewer.Properties.Resources.resources
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\obj\Debug\LogViewer.csproj.GenerateResource.cache
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\obj\Debug\LogViewer.csproj.CoreCompileInputs.cache
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\obj\Debug\LogViewer.exe.manifest
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\obj\Debug\LogViewer.application
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\obj\Debug\LogViewer.csproj.CopyComplete
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\obj\Debug\LogViewer.exe
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\obj\Debug\LogViewer.pdb
+C:\Users\VroomanI\source\repos\LogViewer\LogViewer\obj\Debug\LogViewer.csprojAssemblyReference.cache
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\LogViewer.exe.config
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\LogViewer.exe.manifest
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\LogViewer.application
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\LogViewer.exe
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\LogViewer.pdb
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\AppStandards.dll
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\LogViewerCustomSettings.dll
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\AppStandards.pdb
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\LogViewerCustomSettings.pdb
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\Views\AddLogFolderView.g.cs
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\Views\MainWindow.g.cs
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\Views\SettingsView.g.cs
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\App.g.cs
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\LogViewer_MarkupCompile.cache
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\LogViewer_MarkupCompile.lref
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\App.baml
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\Views\AddLogFolderView.baml
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\Views\MainWindow.baml
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\Views\SettingsView.baml
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\LogViewer.g.resources
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\LogViewer.Properties.Resources.resources
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\LogViewer.csproj.GenerateResource.cache
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\LogViewer.csproj.CoreCompileInputs.cache
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\LogViewer.exe.manifest
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\LogViewer.application
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\LogViewer.csproj.CopyComplete
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\LogViewer.exe
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\LogViewer.pdb
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\AppStandards.xml
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\Views\AddDatabaseView.g.cs
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\Views\AddDatabaseView.baml
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\DynamicData.dll
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\System.Reactive.dll
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\System.ValueTuple.dll
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\DynamicData.xml
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\Views\FilterView.g.cs
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\Views\LogViewView.g.cs
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\ControlzEx.dll
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\MahApps.Metro.dll
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\MahApps.Metro.IconPacks.dll
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\ControlzEx.pdb
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\MahApps.Metro.pdb
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\MahApps.Metro.xml
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\MahApps.Metro.IconPacks.pdb
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\bin\Debug\MahApps.Metro.IconPacks.xml
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\Views\FilterView.baml
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\Views\LogViewView.baml
+C:\Users\VroomanI\Documents\Source\GIT Repo\Support Applications\LogViewer\LogViewer\obj\Debug\LogViewer.csprojAssemblyReference.cache
+C:\Source\Personal\LogViewer\LogViewer\bin\Debug\LogViewer.exe.config
+C:\Source\Personal\LogViewer\LogViewer\bin\Debug\LogViewer.exe
+C:\Source\Personal\LogViewer\LogViewer\bin\Debug\LogViewer.pdb
+C:\Source\Personal\LogViewer\LogViewer\bin\Debug\AppStandards.dll
+C:\Source\Personal\LogViewer\LogViewer\bin\Debug\LogViewerCustomSettings.dll
+C:\Source\Personal\LogViewer\LogViewer\bin\Debug\Microsoft.Xaml.Behaviors.dll
+C:\Source\Personal\LogViewer\LogViewer\bin\Debug\System.ValueTuple.dll
+C:\Source\Personal\LogViewer\LogViewer\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Source\Personal\LogViewer\LogViewer\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Source\Personal\LogViewer\LogViewer\bin\Debug\AppStandards.pdb
+C:\Source\Personal\LogViewer\LogViewer\bin\Debug\AppStandards.xml
+C:\Source\Personal\LogViewer\LogViewer\bin\Debug\DynamicData.xml
+C:\Source\Personal\LogViewer\LogViewer\bin\Debug\LogViewerCustomSettings.pdb
+C:\Source\Personal\LogViewer\LogViewer\bin\Debug\Microsoft.Xaml.Behaviors.xml
+C:\Source\Personal\LogViewer\LogViewer\obj\Debug\LogViewer.csprojAssemblyReference.cache
+C:\Source\Personal\LogViewer\LogViewer\obj\Debug\App.g.cs
+C:\Source\Personal\LogViewer\LogViewer\obj\Debug\Views\AddDatabaseView.g.cs
+C:\Source\Personal\LogViewer\LogViewer\obj\Debug\Views\AddLogFolderView.g.cs
+C:\Source\Personal\LogViewer\LogViewer\obj\Debug\Views\MainWindow.g.cs
+C:\Source\Personal\LogViewer\LogViewer\obj\Debug\Views\SettingsView.g.cs
+C:\Source\Personal\LogViewer\LogViewer\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Source\Personal\LogViewer\LogViewer\obj\Debug\LogViewer_MarkupCompile.cache
+C:\Source\Personal\LogViewer\LogViewer\obj\Debug\LogViewer_MarkupCompile.lref
+C:\Source\Personal\LogViewer\LogViewer\obj\Debug\App.baml
+C:\Source\Personal\LogViewer\LogViewer\obj\Debug\Views\AddDatabaseView.baml
+C:\Source\Personal\LogViewer\LogViewer\obj\Debug\Views\AddLogFolderView.baml
+C:\Source\Personal\LogViewer\LogViewer\obj\Debug\Views\MainWindow.baml
+C:\Source\Personal\LogViewer\LogViewer\obj\Debug\Views\SettingsView.baml
+C:\Source\Personal\LogViewer\LogViewer\obj\Debug\LogViewer.g.resources
+C:\Source\Personal\LogViewer\LogViewer\obj\Debug\LogViewer.Properties.Resources.resources
+C:\Source\Personal\LogViewer\LogViewer\obj\Debug\LogViewer.csproj.GenerateResource.cache
+C:\Source\Personal\LogViewer\LogViewer\obj\Debug\LogViewer.csproj.CoreCompileInputs.cache
+C:\Source\Personal\LogViewer\LogViewer\obj\Debug\LogViewer.csproj.CopyComplete
+C:\Source\Personal\LogViewer\LogViewer\obj\Debug\LogViewer.exe
+C:\Source\Personal\LogViewer\LogViewer\obj\Debug\LogViewer.pdb
